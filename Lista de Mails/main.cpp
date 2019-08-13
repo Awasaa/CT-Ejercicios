@@ -12,6 +12,11 @@ int main(void)
 	Email m5("MailE", "C", "07/11/15");
 	Email m6("MailF", "A C", "03/12/15");
 
+	//cout << m1.GetName() << m1.GetFlags() << m1.GetDate() << endl;
+	//cout << m2.GetName() << m2.GetFlags() << m2.GetDate() << endl;
+	cout << m6.GetName() << m6.GetFlags() << m6.GetDay() << m6.GetMonth() << m6.GetYear() <<endl;
+
+
 	EmailList.push_back(m1);
 	EmailList.push_back(m2);
 	EmailList.push_back(m3);
@@ -20,12 +25,12 @@ int main(void)
 	EmailList.push_back(m6);
 
 	EmailsManager EmailMang;
-	string OrderSettings = "B-LIFO|!C-FIFO|C-LIFO";
+	string OrderSettings = "B-FIFO|!C-LIFO|C-FIFO";
 
-	EmailMang.OrderEmails(EmailList, OrderSettings);
+	EmailList = EmailMang.OrderEmails(EmailList, OrderSettings);
 	
 
-
+	system("pause");
 
 	return 0;
 }

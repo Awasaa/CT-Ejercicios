@@ -5,6 +5,7 @@ CashRegister::CashRegister(int p1Amount,int p5Amount, int p10Amount,
 {
 	TotalMoney = 0;
 	CashRegisterInfo.clear();
+	LastPaymentInfo.clear();
 
 	p1.resize(p1Amount);
 	p5.resize(p5Amount);
@@ -62,8 +63,46 @@ std::string
 CashRegister::MakeTransaction(int Value)
 {
 	LastPayment = Value;
+	int  TempPayment = 0;
+
+	while (p100.size() != 0 && TempPayment + p100[0].getValue() <= Value)
+	{
+		TempPayment += p100[0].getValue();
+		p100.pop_back();
+	}
+	while (p50.size() != 0 && TempPayment + p50[0].getValue() <= Value)
+	{
+		TempPayment += p50[0].getValue();
+		p50.pop_back();
+	}
+	while (p20.size() != 0 && TempPayment + p20[0].getValue() <= Value)
+	{
+		TempPayment += p20[0].getValue();
+		p20.pop_back();
+	}
+	while (p10.size() != 0 && TempPayment + p10[0].getValue() <= Value)
+	{
+		TempPayment += p10[0].getValue();
+		p10.pop_back();
+	}
+	while (p5.size() != 0 && TempPayment + p5[0].getValue() <= Value)
+	{
+		TempPayment += p5[0].getValue();
+		p5.pop_back();
+	}
+	while (p1.size() != 0 && TempPayment + p1[0].getValue() <= Value)
+	{
+		TempPayment += p1[0].getValue();
+		p1.pop_back();
+	}
+
+	LastPaymentInfo = "\nUltimo Valor a Pagar: " + std::to_string(LastPayment);
+	LastPaymentInfo += "\nPago Realizado: " + std::to_string(TempPayment);
+	if (TempPayment < LastPayment)
+		LastPaymentInfo += "\nEstado: Pago menor del solicitado. Dinero insuficiente en caja\n";
+	else
+		LastPaymentInfo += "\nEstado: Pago realizado correctamente\n";
 
 
 	return LastPaymentInfo;
 }
-
