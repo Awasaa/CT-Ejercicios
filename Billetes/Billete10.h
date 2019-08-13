@@ -3,7 +3,7 @@
 
 #include "billete.h"
 
-#define _10_BILLET_VALUE (10)
+#define _10_BILLET_VALUE (10) //Valor del billete
 
 class Billete10 : public Billete
 {
